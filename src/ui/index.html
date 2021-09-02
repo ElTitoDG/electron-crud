@@ -6,12 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Electron + MySQL</title>
     <link rel="stylesheet" href="./bootstrap.min.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link rel="stylesheet" href="./app.css">
 </head>
 <body>
     <main class="container-fluid">
         <div class="row">
             <div class="col-md-6 my-auto">
-                <form class="card card-body">
+                <form class="card card-body animate__animated animate__fadeInUp" id="productForm">
                     <div class="form-group p-2">
                         <input
                             type="text"
@@ -42,7 +47,14 @@
                     </button>
                 </form>
             </div>
+
+            <div class="col-md-6">
+                <div id="products">
+
+                </div>
+            </div>
         </div>
     </main>
+    <script src="./app.js"></script>
 </body>
 </html>
