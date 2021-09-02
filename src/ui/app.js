@@ -31,8 +31,13 @@ productForm.addEventListener('submit', async (e) => {
     getProducts();
 })
 
-function deleteProduct(id) {
-    console.log(id)
+async function deleteProduct(id) {
+   const response = confirm('¿Seguro que quieres borrarlo?')
+   if (response) {
+        await main.deleteProduct(id)
+        getProducts();
+   }
+   return;
 }
 
 function renderProducts(products) {
@@ -47,7 +52,7 @@ function renderProducts(products) {
                     <button class="btn btn-secondary">
                         EDITAR
                     </button>
-                    <button class="btn btn-danger" onClick="deleteProduct(1)">
+                    <button class="btn btn-danger" onClick="deleteProduct('${product.id}')">
                         BORRAR
                     </button>
                     

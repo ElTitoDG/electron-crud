@@ -26,12 +26,19 @@ async function getProducts() {
     return results;
 }
 
+async function deleteProduct(id) {
+    const conn = await getConnection();
+    const result = await conn.query('DELETE FROM product WHERE id = ?', id);
+    console.log(result)
+    return result;
+}
+
 let window
 
 function createWindow() {
     window = new BrowserWindow({
-        width: 1920,
-        height: 1080,
+        width: 1000,
+        height: 800,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -44,5 +51,6 @@ function createWindow() {
 module.exports = {
     createWindow,
     createProduct,
-    getProducts
+    getProducts,
+    deleteProduct
 }
