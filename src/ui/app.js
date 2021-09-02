@@ -11,6 +11,8 @@ const productDescription = document.getElementById('description');
 const productsList = document.getElementById('products')
 
 let products = []
+let editingStatus = false;
+let editProductId = '';
 
 
 productForm.addEventListener('submit', async (e) => {
@@ -22,8 +24,15 @@ productForm.addEventListener('submit', async (e) => {
         description: productDescription.value,
     }
 
-    const result = await main.createProduct(newProduct);
-    console.log(result)
+    if (!editingStatus) {
+        const result = await main.createProduct(newProduct);
+        console.log(result)
+    } else {
+        await main.updateProduct(editProductId, newProduct);
+
+        editingStatus = false;
+        editProductId= '';
+    }
 
     productForm.reset();
     productName.focus();
@@ -40,6 +49,17 @@ async function deleteProduct(id) {
    return;
 }
 
+async function editProduct(id) {
+    const product = await main.getProductById(id);
+    productName.value = product.name;
+    productPrice.value = product.price;
+    productDescription.value = product.description;
+
+    editingStatus = true;
+    editProductId = product.id;
+
+}
+
 function renderProducts(products) {
     productsList.innerHTML = '';
     products.forEach(product => {
@@ -49,7 +69,7 @@ function renderProducts(products) {
                 <p>${product.description}</p>
                 <h3>${product.price}</h3>
                 <p>
-                    <button class="btn btn-secondary">
+                    <button class="btn btn-secondary" onClick="editProduct('${product.id}')">
                         EDITAR
                     </button>
                     <button class="btn btn-danger" onClick="deleteProduct('${product.id}')">

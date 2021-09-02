@@ -33,6 +33,18 @@ async function deleteProduct(id) {
     return result;
 }
 
+async function getProductById(id) {
+    const conn = await getConnection();
+    const result = await conn.query('SELECT * FROM product WHERE id = ?', id);
+    return result[0];
+}
+
+async function updateProduct(id, product) {
+    const conn = await getConnection();
+    const result = await conn.query('UPDATE product SET ? WHERE id = ?', [product, id]);
+    console.log(result);
+}
+
 let window
 
 function createWindow() {
@@ -52,5 +64,7 @@ module.exports = {
     createWindow,
     createProduct,
     getProducts,
-    deleteProduct
+    deleteProduct,
+    getProductById,
+    updateProduct
 }
