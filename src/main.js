@@ -1,4 +1,4 @@
-const {BrowserWindow, Notification} = require('electron')
+const {BrowserWindow, Notification, Menu} = require('electron')
 const {getConnection} = require('./database')
 
 async function createProduct(product) {
@@ -56,6 +56,7 @@ function createWindow() {
             contextIsolation: false,
             enableRemoteModule: true,
         },
+        
     })
     window.loadFile('src/ui/index.html');
 }
